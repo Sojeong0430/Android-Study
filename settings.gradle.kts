@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "My Application1"
 include(":app")
+include(":ch06_view")
