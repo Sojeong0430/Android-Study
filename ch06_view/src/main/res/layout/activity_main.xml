@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="10dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/password_txt"/>
+        android:text="@android:string/serviceEnabled"/>
 
 
     <Button
@@ -53,7 +53,7 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@drawable/duksae"
+        android:src="@android:drawable/ic_dialog_map"
         android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal" />
 
