@@ -2,5 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="title">#ff00aa</color>
+    <color name="title">#321687</color>
+    <color name="title_landscape">#494949</color>
 </resources>
