@@ -1,79 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="30dp"
-        android:visibility="visible"
-        android:id="@+id/visibleBtn"
-        android:text="BUTTON1"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BUTTON2" />
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:id="@+id/main">
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/add"
+            android:tint="#00FF00"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="연락처 추가"
+            android:textStyle="bold"
+            android:textColor="#00FF00"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/button3"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BUTTON3"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BUTTON4"/>
+            android:text="02-120"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:layout_marginTop="100dp"
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/targetView"
-        android:visibility="invisible"
-        android:text="이지스 퍼블리싱 : https://easypublishing.com"
-        android:autoLink="web"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="안드로이드(영어: Android)는 스마트폰, 태블릿 PC 같은 터치스크린 모바일 장치 용으로 디자인된 운영 체제이자 수정된 리눅스 커널 버전을 비롯한 오픈 소스 소프트웨어에 기반을 둔 모바일 운영 체제다."
-        android:maxLines="1"
-        android:ellipsize="end"/>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_background"
-        android:maxWidth="10dp"
-        android:maxHeight="30dp"
-        android:adjustViewBounds="true"/>
-    <CheckBox
+    <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="check1"/>
-    <CheckBox
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:columnCount="3">
+        <TextView
+            android:text="1"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+        <TextView
+            android:text="2"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+        <TextView
+            android:text="3"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+        <TextView
+            android:text="4"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+        <TextView
+            android:text="5"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+        <TextView
+            android:text="6"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+        <TextView
+            android:text="7"
+            android:textStyle="bold"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textSize="25dp"/>
+        <TextView
+            android:text="8"
+            android:textStyle="bold"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textSize="25dp"/>
+        <TextView
+            android:text="9"
+            android:textStyle="bold"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textSize="25dp"/>
+        <TextView
+            android:text="*"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+        <TextView
+            android:text="0"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+        <TextView
+            android:text="#"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp"
+            android:textStyle="bold"
+            android:textSize="25dp"/>
+    </GridLayout>
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="check2"/>
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="radio1"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="radio1"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="radio1"/>
-    </RadioGroup>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"/>
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/video"
+            android:layout_marginRight="20dp"
+            android:id="@+id/video"/>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/call"
+            android:id="@+id/call"
+            android:layout_toRightOf="@+id/video"/>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/back"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/call"/>
+    </RelativeLayout>
 </LinearLayout>
