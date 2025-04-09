@@ -1,29 +1,157 @@
 package com.example.ch10_dialog
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.DatePicker
+import android.widget.TimePicker
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ch10_dialog.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    val TAG = "25android_programming"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView((binding.root))
+        setContentView(binding.root)
 
         binding.btnDate.setOnClickListener {
             DatePickerDialog(this, object:DatePickerDialog.OnDateSetListener{
                 override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                    TODO("Not yet implemented")
+                    //TODO("Not yet implemented")
+                    Log.d(TAG,"날짜정하기 : $year 년 ${month+1} 월 $dayOfMonth 일")
+
+                    binding.btnDate.text = "날짜정하기 : $year 년 ${month+1} 월 $dayOfMonth 일"
+                    binding.btnDate.textSize = 24f
+                    binding.btnDate.setTextColor(Color.rgb(255,0,0))
+
+                    Toast.makeText(applicationContext, "날짜정하기 : $year 년 ${month+1} 월 $dayOfMonth 일", Toast.LENGTH_SHORT).show()
                 }
-            }, 2025, 4, 7).show() // 2025-4-7
+            }, 2025, 3,7).show() // 2025-4-7
         }
 
         binding.btnTime.setOnClickListener {
+            TimePickerDialog(this, object:TimePickerDialog.OnTimeSetListener{
+                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                    //TODO("Not yet implemented")
+                    binding.btnTime.text = "시간정하기 : $hourOfDay 시 $minute 분"
+                    binding.btnTime.textSize = 24f
+                    binding.btnTime.setTextColor(Color.rgb(255,0,0))
+                }
+            }, 15, 19, true).show()
 
         }
 
+        val eventhandler = object:DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                //TODO("Not yet implemented")
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    Log.d(TAG, "POSITIVE BUTTON")
+                }
+                else if(which == DialogInterface.BUTTON_NEGATIVE){
+                    Log.d(TAG, "NEGATIVE BUTTON")
+                }
+                else if(which == DialogInterface.BUTTON_NEUTRAL){
+                    Log.d(TAG, "NEUTRAL BUTTON")
+                }
+            }
+        }
+        binding.btnAlert.setOnClickListener {
+            /*
+            val dialog = AlertDialog.Builder(this)
+            dialog.setTitle("알림")
+            dialog.setIcon(android.R.drawable.ic_dialog_alert)
+            dialog.setMessage("정말로 종료할까요?")
+            dialog.setPositiveButton("예", null)
+            dialog.setNegativeButton("아니오", null)
+            dialog.setNeutralButton("상세정보", null)
+            dialog.show()
+            */
+
+            AlertDialog.Builder(this).run {
+                setTitle("알림")
+                setIcon(android.R.drawable.ic_dialog_alert)
+                setMessage("정말로 종료할까요?")
+                setPositiveButton("예", eventhandler)
+                setNegativeButton("아니오", eventhandler)
+                setNeutralButton("상세정보", eventhandler)
+                show()
+            }
+        }
+
+        var items = arrayOf<String>("빨강","초록","파랑","노랑")
+
+        var selected = 1
+        val eventhandler2 = object:DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                //TODO("Not yet implemented")
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    Log.d(TAG, "POSITIVE BUTTON")
+                    binding.btnSingle.text = "${items[selected]} 선택"
+                    binding.btnSingle.textSize = 24f
+                    binding.btnSingle.setTextColor(Color.rgb(255,0,0))
+                }
+                else if(which == DialogInterface.BUTTON_NEGATIVE){
+                    Log.d(TAG, "NEGATIVE BUTTON")
+                }
+                else if(which == DialogInterface.BUTTON_NEUTRAL){
+                    Log.d(TAG, "NEUTRAL BUTTON")
+                }
+            }
+        }
+
+        binding.btnItem.setOnClickListener {
+            AlertDialog.Builder(this).run {
+                setTitle("알림")
+                setIcon(android.R.drawable.ic_dialog_alert)
+                setItems(items, object:DialogInterface.OnClickListener{
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        binding.btnItem.text = "${items[which]} 선택"
+                        binding.btnItem.textSize = 24f
+                        binding.btnItem.setTextColor(Color.rgb(255,0,0))
+                    }
+                })
+                setPositiveButton("예", eventhandler)
+                setNegativeButton("아니오", eventhandler)
+                setNeutralButton("상세정보", eventhandler)
+                show()
+            }
+        }
+
+        binding.btnSingle.setOnClickListener {
+            AlertDialog.Builder(this).run {
+                setTitle("알림")
+                setIcon(android.R.drawable.ic_dialog_alert)
+                setSingleChoiceItems(items, 1, object:DialogInterface.OnClickListener{
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        selected = which
+                    }
+                })
+                setPositiveButton("예", eventhandler2)
+                setNegativeButton("아니오", eventhandler2)
+                setNeutralButton("상세정보", eventhandler2)
+                show()
+            }
+        }
+
+        binding.btnMulti.setOnClickListener {
+            AlertDialog.Builder(this).run {
+                setTitle("알림")
+                setIcon(android.R.drawable.ic_dialog_alert)
+                setMultiChoiceItems(items, booleanArrayOf(true,true, false,false), null)
+                setPositiveButton("예", eventhandler)
+                setNegativeButton("아니오", eventhandler)
+                setNeutralButton("상세정보", eventhandler)
+                show()
+            }
+        }
+
+        binding.btnCustom.setOnClickListener {  }
     }
 }
