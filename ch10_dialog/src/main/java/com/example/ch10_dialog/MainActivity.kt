@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ch10_dialog.databinding.ActivityMainBinding
+import com.example.ch10_dialog.databinding.DialogCustomBinding
 
 class MainActivity : AppCompatActivity() {
     val TAG = "25android_programming"
@@ -140,18 +141,80 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val mul_selected = arrayOf<Boolean>(true,true,false,false)
+
+        val eventhandler3 = object:DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                //TODO("Not yet implemented")
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    Log.d(TAG, "POSITIVE BUTTON")
+                    var str = ""
+                    for(i in 0..3){
+                        if(mul_selected[i] == true){
+                            str += items[i] + " "
+                        }
+                    }
+                    binding.btnMulti.text = str
+                    binding.btnMulti.textSize = 24f
+                    binding.btnMulti.setTextColor(Color.rgb(255,0,0))
+                }
+                else if(which == DialogInterface.BUTTON_NEGATIVE){
+                    Log.d(TAG, "NEGATIVE BUTTON")
+                }
+                else if(which == DialogInterface.BUTTON_NEUTRAL){
+                    Log.d(TAG, "NEUTRAL BUTTON")
+                }
+            }
+        }
+
         binding.btnMulti.setOnClickListener {
             AlertDialog.Builder(this).run {
                 setTitle("알림")
                 setIcon(android.R.drawable.ic_dialog_alert)
-                setMultiChoiceItems(items, booleanArrayOf(true,true, false,false), null)
-                setPositiveButton("예", eventhandler)
-                setNegativeButton("아니오", eventhandler)
-                setNeutralButton("상세정보", eventhandler)
+                setMultiChoiceItems(items, booleanArrayOf(true,true, false,false), object:DialogInterface.OnMultiChoiceClickListener{
+                    override fun onClick(dialog: DialogInterface?, which: Int, isChecked: Boolean) {
+                        Log.d(TAG,"$which 항목 선택 $isChecked")
+                        mul_selected[which] = isChecked
+                    }
+                })
+                setPositiveButton("예", eventhandler3)
+                setNegativeButton("아니오", eventhandler3)
+                setNeutralButton("상세정보", eventhandler3)
                 show()
             }
         }
 
-        binding.btnCustom.setOnClickListener {  }
+        val dia_binding = DialogCustomBinding.inflate((layoutInflater))
+
+        val eventhandler4 = object:DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    Log.d(TAG, "POSITIVE BUTTON")
+                    if(dia_binding.rbtn1.isChecked == true){
+                        binding.btnCustom.text = dia_binding.rbtn1.text.toString()
+                        //binding.btnCustom.text = "1학년"
+                    }
+                    binding.btnCustom.textSize = 24f
+                    binding.btnCustom.setTextColor(Color.rgb(255,0,0))
+                }
+            }
+        } // 수정 필요
+
+        val cus_dia = AlertDialog.Builder(this).run{
+            setTitle("알림")
+            setView(dia_binding.root)
+            setPositiveButton("yes",eventhandler4)
+            create()
+        }
+
+        binding.btnCustom.setOnClickListener {
+/*            AlertDialog.Builder(this).run{
+                setTitle("알림")
+                setView(dia_binding.root)
+                setPositiveButton("yes",null)
+                show()
+            }*/
+            cus_dia.show()
+        }
     }
 }
