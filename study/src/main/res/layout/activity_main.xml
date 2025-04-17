@@ -5,68 +5,109 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#FFF6A9">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="식사 기록"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:columnCount="2">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:id="@+id/date"
+            android:text="날짜"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/dateT"
+            android:text="날짜 입력"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:id="@+id/time"
+            android:text="시간"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/timeT"
+            android:text="시간 입력"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:id="@+id/meal"
+            android:text="식사량"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/mealT"
+            android:text="식사량 입력"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:id="@+id/other"
+            android:text="특이사항"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/otherT"
+            android:text="특이사항 입력"/>
+    </GridLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="저장"
+        android:layout_marginTop="80dp"
+        android:id="@+id/save"
+        android:textSize="20dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        android:text="선택을 시작하겠습니까?" />
-    <CheckBox
-        android:id="@+id/chb_start"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="시작함" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/choice_animal"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:visibility="invisible">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            android:text="좋아하는 애완동물은?" />
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rdGroup">
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rd_dog"
-                android:textSize="20dp"
-                android:text="강아지" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rd_cat"
-                android:textSize="20dp"
-                android:text="고양이" />
-            <RadioButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rd_rabbit"
-                android:textSize="20dp"
-                android:text="토끼" />
-        </RadioGroup>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_ok"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:text="선택 완료" />
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:id="@+id/iv_animal"
-            android:src="@android:drawable/ic_dialog_info" />
-    </LinearLayout>
+        android:text=""
+        android:visibility="invisible"
+        android:id="@+id/result"
+        android:textColor="#FF0000"
+        android:background="@color/white"/>
 
 </LinearLayout>

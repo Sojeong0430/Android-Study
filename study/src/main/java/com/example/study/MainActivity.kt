@@ -1,11 +1,15 @@
 package com.example.study
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
-import android.view.MotionEvent
 import android.view.View
+import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.study.databinding.ActivityMainBinding
 
@@ -16,84 +20,144 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //시작 체크박스
-        binding.chbStart.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked == true){
-                binding.choiceAnimal.visibility = View.VISIBLE
-            }
-            else{
-                binding.choiceAnimal.visibility = View.INVISIBLE
-            }
-        }
+        lateinit var datePickerDialog: DatePickerDialog
+        lateinit var timePickerDialog: TimePickerDialog
+        lateinit var mealPickerDialog: AlertDialog
+        lateinit var otherPickerDialog: DatePickerDialog
 
-        //선택지에 따라 이미지 변경
-        binding.btnOk.setOnClickListener {
-            if(binding.rdDog.isChecked){
-                binding.ivAnimal.setImageResource(R.drawable.dog)
-            }
-            else if(binding.rdCat.isChecked){
-                binding.ivAnimal.setImageResource(R.drawable.cat)
-            }
-            else if(binding.rdRabbit.isChecked){
-                binding.ivAnimal.setImageResource(R.drawable.rabbit)
-            }
-        }
+        var y = 2025
+        var m = 4
+        var d = 12
 
-        //길게 클릭
-        binding.ivAnimal.setOnLongClickListener {
-            //Log.d("tag","Long Click")
+        var h = 5
+        var mi = 10
 
-            //토스트 메시지 띄우기
-            //Toast.makeText(this,"ImageView Long Event",Toast.LENGTH_LONG).show()
-            val myToast = Toast.makeText(this,"Long",Toast.LENGTH_LONG)
-            myToast.show()
-            
-            true
-        }
-        
-        binding.rdGroup.setOnCheckedChangeListener { group, checkedId ->
-            when(checkedId){
-                R.id.rd_dog -> {
-                    Toast.makeText(this,"Dog",Toast.LENGTH_SHORT).show()
+        var items = arrayOf<String>("많이", "보통", "적게")
+        var selected = 1
+
+        var multiItems = arrayOf<String>("나트륨 적게", "설탕 적게")
+        var str = ""
+
+        val dateEventHandler = object:DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    binding.dateT.text = "$y 년 $m 월 $d 일"
+                    Toast.makeText(applicationContext,"$y 년 $m 월 $d 일",Toast.LENGTH_SHORT).show()
                 }
-                R.id.rd_cat -> {
-                    Toast.makeText(this,"Cat",Toast.LENGTH_SHORT).show()
-                }
-                R.id.rd_rabbit -> {
-                    Toast.makeText(this,"Rabbit",Toast.LENGTH_SHORT).show()
+                else if(which == DialogInterface.BUTTON_NEGATIVE){
+                    Log.d("tag","close")
                 }
             }
         }
-    }
 
-    // 터치 이벤트 콜백 함수 선언
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when(event?.action){
-            MotionEvent.ACTION_DOWN->{
-                Log.d("tag","Touch Down ${event.x}, ${event.y}")
-            }
-            MotionEvent.ACTION_UP->{
-                Log.d("tag","Touch Up")
+        val timeEventHandler = object:DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    binding.timeT.text = "$h 시 $mi 분"
+                    Toast.makeText(applicationContext,"$h 시 $mi 분",Toast.LENGTH_SHORT).show()
+                }
+                else if(which == DialogInterface.BUTTON_NEGATIVE){
+                    Log.d("tag","close")
+                }
             }
         }
-        return super.onTouchEvent(event)
-    }
 
-    // 키보드 콜백 함수
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        //Log.d("tag","Key Down")
-
-        when(keyCode){
-            KeyEvent.KEYCODE_A -> {Log.d("tag","Key A Down")}
-            KeyEvent.KEYCODE_0 -> {Log.d("tag","Key 0 Down")}
-            KeyEvent.KEYCODE_BACK -> {Log.d("tag","Key BACK Down")}
+        val mealEventHandler = object:DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    binding.mealT.text = "${items[selected]}"
+                    Toast.makeText(applicationContext,"${items[selected]} 선택",Toast.LENGTH_SHORT).show()
+                }
+                else if(which == DialogInterface.BUTTON_NEGATIVE){
+                    Log.d("tag","close")
+                }
+            }
         }
 
-        return super.onKeyDown(keyCode, event)
-    }
+        val mul_selected = arrayOf<Boolean>(false,false)
 
-    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-        Log.d("tag","Key Up")
-        return super.onKeyUp(keyCode, event)
+        val otherEventHandler = object:DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    str = ""
+                    for(i in 0..1){
+                        if(mul_selected[i] == true){
+                            str += multiItems[i]+" ";
+                        }
+                    }
+                    binding.otherT.text = str
+                    Toast.makeText(applicationContext,"$str 선택",Toast.LENGTH_SHORT).show()
+                }
+                else if(which == DialogInterface.BUTTON_NEGATIVE){
+                    Log.d("tag","close")
+                }
+            }
+        }
+
+        //날짜 선택
+        binding.date.setOnClickListener {
+            datePickerDialog = DatePickerDialog(this, object : DatePickerDialog.OnDateSetListener {
+                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+                    y = year
+                    m = month + 1
+                    d = dayOfMonth
+                }
+            }, 2025, 3, 12)
+
+            datePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE, "확인", dateEventHandler)
+            datePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "취소", dateEventHandler)
+            datePickerDialog.show()
+        }
+
+        //시간 선택
+        binding.time.setOnClickListener {
+            timePickerDialog = TimePickerDialog(this, object:TimePickerDialog.OnTimeSetListener{
+                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                    h = hourOfDay
+                    mi = minute
+                    Log.d("tag","$h $mi")
+                }
+            },17,30,true)
+            timePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,"확인",timeEventHandler)
+            timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"취소",timeEventHandler)
+            timePickerDialog.show()
+        }
+
+        //식사량 선택
+        binding.meal.setOnClickListener {
+            AlertDialog.Builder(this).run{
+                setTitle("식사량 선택")
+                setIcon(android.R.drawable.ic_dialog_alert)
+                setSingleChoiceItems(items,1,object:DialogInterface.OnClickListener{
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        selected = which
+                    }
+                })
+                setPositiveButton("예",mealEventHandler)
+                setNeutralButton("아니오",mealEventHandler)
+                show()
+            }
+        }
+
+        //특이사항
+        binding.other.setOnClickListener {
+            AlertDialog.Builder(this).run{
+                setTitle("특이사항 선택")
+                setMultiChoiceItems(multiItems, booleanArrayOf(false,false),object:DialogInterface.OnMultiChoiceClickListener{
+                    override fun onClick(dialog: DialogInterface?, which: Int, isChecked: Boolean) {
+                        mul_selected[which] = isChecked
+                    }
+                })
+                setPositiveButton("예",otherEventHandler)
+                setNegativeButton("아니오",otherEventHandler)
+                show()
+            }
+        }
+
+        binding.save.setOnClickListener {
+            binding.save.text="수정"
+            binding.result.text = "$y 년 $m 월 $d 일\n" + "$h 시 $mi 분\n" + "${items[selected]}\n" + str
+            binding.result.visibility = View.VISIBLE
+        }
     }
 }
