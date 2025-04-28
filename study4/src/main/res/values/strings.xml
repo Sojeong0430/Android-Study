@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">study4</string>
+    <string name="script">회원님의 소중한 정보 보흐를 위해, 카카오톡계정의 현재 비밃번호를 확인해 주세요</string>
+    <string name="matome">
+        - android:visibillity
+visible = 보임
+invisible = 안보임
+gone = 자리도 안차지함
+
+- android:textStyle
+bold = 굵음
+italic = 기울임
+normal = 기본
+
+-android:autoLink 문자열 문석 후 자동 링크 추가
+web, phone, email
+
+-android:maxLine : 텍스트가 특정 줄까지만 나오도록 하는 속성
+-android:ellipsize : (...) 추가
+end,middle,start 지정
+middle, start는 android:singleLine="true" 써야함
+
+android:maxWidth="10dp"
+android:maxHeight="50dp"
+android:adjustViewBounds="true"
+-이미지의 최재 크기를 설정, android:adjustViewBounds="true" 같이 써야함
+
+레이아웃
+1. LinearLayout : 뷰를 가로세로 방향으로 나열하는 레이아웃
+-orientanion 속성에 horizontal vertical 설정
+
+gravity : 뷰 내부의 콘텐츠를 정렬
+android:gravity="right|bottom"
+layout_gravity : 뷰 자체를 정렬
+
+android:layout_weight="1" 전체 여백 채우기
+
+2. RelativeLayout : 상대 부의 위치를 기준으로 정렬하는 레이아웃
+android:layout_toRightOf="@+id/test" 상대기준 오른쪽
+toLeftOf
+below
+above
+
+android:layout_alignParentTop:부모의위쪽에맞춤
+android:layout_alignParentBotom:부모의아래쪽에맞춤
+android:layout_alignParentLeft:부모의왼쪽에맞춤
+android:layout_alignParentRight:부모의오른쪽에맞춤
+android:layout_centerHorizontal:부모의가로방향중앙에맞춤
+android:layout_centerVertical:부모의세로방향중앙에맞춤
+android:layout_centerInParent:부모의가로·세로중앙에맞춤
+
+3. FrameLayout : 겹쳐서 배치
+
+4. GridLayout : 표 형태로 배치
+-orieatation 속성으로 가로나 세로 방향으로 뷰를 나열함
+rowCount : 세로로 나열할 갯수
+columnCount : 가로로 나열할 갯수
+
+android:layout_column="1" 뷰 위치조정 가로방향 인덱스
+android:layout_row="1"/> 세로방향 인덱스
+ndroid:layout_gravity="fill_horizontal" 특정 뷰의 크기 확장하기
+android:layout_columnSpan : 가로로 열 병합
+android:layout_rowSpan : 세로로 행 병합
+
+5. ConstraintLayout androidx에서 제공하는 라이브러리
+그.. GUI인듯함 계층 구조로 배치
+    </string>
+</resources>
