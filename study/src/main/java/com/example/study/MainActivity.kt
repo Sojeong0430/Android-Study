@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         var m = 4
         var d = 12
 
-        var h = 5
+        var h = 15
         var mi = 10
 
         var items = arrayOf<String>("많이", "보통", "적게")
@@ -50,17 +50,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val timeEventHandler = object:DialogInterface.OnClickListener{
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                if(which == DialogInterface.BUTTON_POSITIVE){
-                    binding.timeT.text = "$h 시 $mi 분"
-                    Toast.makeText(applicationContext,"$h 시 $mi 분",Toast.LENGTH_SHORT).show()
-                }
-                else if(which == DialogInterface.BUTTON_NEGATIVE){
-                    Log.d("tag","close")
-                }
-            }
-        }
 
         val mealEventHandler = object:DialogInterface.OnClickListener{
             override fun onClick(dialog: DialogInterface?, which: Int) {
@@ -115,11 +104,10 @@ class MainActivity : AppCompatActivity() {
                 override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
                     h = hourOfDay
                     mi = minute
-                    Log.d("tag","$h $mi")
+                    binding.timeT.text = "$hourOfDay 시 $minute 분"
+                    Toast.makeText(applicationContext,"$h 시 $mi 분",Toast.LENGTH_SHORT).show()
                 }
             },17,30,true)
-            timePickerDialog.setButton(DialogInterface.BUTTON_POSITIVE,"확인",timeEventHandler)
-            timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE,"취소",timeEventHandler)
             timePickerDialog.show()
         }
 
