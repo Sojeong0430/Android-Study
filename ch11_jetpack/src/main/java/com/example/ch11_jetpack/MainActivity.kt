@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     class MyFragmentPagerAdapter(activity: FragmentActivity): FragmentStateAdapter(activity){
         val fragments: List<Fragment>
         init {
-            fragments = listOf()
+            fragments = listOf(OneFragment(),TwoFragment(),ThreeFragment())
         }
 
         override fun getItemCount(): Int {

@@ -1,10 +1,13 @@
 package com.example.ch11_jetpack
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ch11_jetpack.databinding.FragmentOneBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,6 +19,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [OneFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class OneFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -34,8 +38,21 @@ class OneFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        //val binding = FragmentOneBinding.inflate(layoutInflater)
-        return inflater.inflate(R.layout.fragment_one, container, false)
+        val binding = FragmentOneBinding.inflate(inflater,container,false)
+
+        var datas = mutableListOf<String>()
+        for(i in 1..10){
+            datas.add("Item $i")
+        }
+
+        val radapter = MyAdapter(datas)
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        //binding.recyclerView.layoutManager = GridLayoutManager(activity, 2)
+        binding.recyclerView.adapter = radapter
+        binding.recyclerView.addItemDecoration(MyDecoration(activity as Context))
+
+        return binding.root
+        //return inflater.inflate(R.layout.fragment_one, container, false)
     }
 
     companion object {
