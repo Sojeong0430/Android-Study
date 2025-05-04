@@ -14,8 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.ch11_jetpack.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val TAG = "25android"
     lateinit var toggle: ActionBarDrawerToggle
@@ -100,5 +101,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.nav_item_call -> {
+                var intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:092-901-1111")
+                startActivity(intent)
+                true
+            }
+        }
+
+        return false
     }
 }
