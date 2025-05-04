@@ -29,16 +29,14 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="300dp"
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#FF0000"
         android:fitsSystemWindows="true"
-        android:gravity="center_horizontal"
-        android:text="I am Drawer"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
-        android:textStyle="bold"/>
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/menu_navigation"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
