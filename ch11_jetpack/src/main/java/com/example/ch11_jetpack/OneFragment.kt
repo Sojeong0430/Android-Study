@@ -45,9 +45,14 @@ class OneFragment : Fragment() {
         val binding = FragmentOneBinding.inflate(inflater,container,false)
 
         var datas = mutableListOf<String>()
- /*       for(i in 1..10){
-            datas.add("Item $i")
-        }*/
+        val db = DBHelper(inflater.context).readableDatabase
+        val cursor = db.rawQuery("select * from TODO_TB", null) // 테이블의 모든 행 가져옴
+        cursor.run {
+            while(moveToNext()){
+                datas.add(cursor.getString(1)) // 행의 두번째 칼럼 값 가져와서 저장
+            }
+        }
+        db.close() // 끝난 후 반드시 종료
 
         val radapter = MyAdapter(datas)
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)

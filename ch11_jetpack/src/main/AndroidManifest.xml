@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication1">
         <activity
+            android:name=".SettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddActivity"
             android:exported="false" />
         <activity
