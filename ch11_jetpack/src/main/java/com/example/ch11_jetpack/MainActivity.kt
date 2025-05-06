@@ -15,11 +15,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.ch11_jetpack.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val TAG = "25android"
     lateinit var toggle: ActionBarDrawerToggle
+    lateinit var binding: ActivityMainBinding
 
     class MyFragmentPagerAdapter(activity: FragmentActivity): FragmentStateAdapter(activity){
         val fragments: List<Fragment>
@@ -38,7 +40,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar) // 액션바 설정
@@ -50,6 +53,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val adapter = MyFragmentPagerAdapter(this)
         binding.viewpager.adapter = adapter
+
+        binding.drawer.setNavigationItemSelectedListener(this)
+
+        TabLayoutMediator(binding.tabs, binding.viewpager){
+            tab, position -> tab.text = "TAB ${position+1}"
+        }.attach()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -83,6 +92,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             return true
         }
         when(item.itemId){
+            R.id.menu_setting -> {
+                val intent = Intent(this, SettingActivity::class.java)
+                startActivity(intent)
+            }
             R.id.menu0 -> {
                 val lat = 37.651450
                 val lon = 127.016637
@@ -107,12 +120,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when(item.itemId){
             R.id.nav_item_call -> {
                 var intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse("tel:092-901-1111")
+                intent.data = Uri.parse("tel:02-901-1111")
                 startActivity(intent)
                 true
             }
         }
-
+        binding.main.closeDrawers()
         return false
     }
 }

@@ -19,7 +19,12 @@ class AddActivity : AppCompatActivity() {
         binding.date.text = date
 
         binding.btnSave.setOnClickListener {
-            val inrent = intent
+            val todo_str = binding.addEditView.text.toString()
+            val db = DBHelper(this).writableDatabase
+            db.execSQL("insert into TODO_TB (todo) values (?)", arrayOf<String>(todo_str))
+            db.close() // 끝난 후 반드시 닫아주기
+
+            val intent = intent
             intent.putExtra("result",binding.addEditView.text.toString())
             setResult(Activity.RESULT_OK, intent)
 
@@ -29,7 +34,7 @@ class AddActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val inrent = intent
+        val intent = intent
         intent.putExtra("result","")
         setResult(Activity.RESULT_OK, intent)
 
