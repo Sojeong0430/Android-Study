@@ -2,6 +2,8 @@ package com.example.ch11_jetpack
 
 import android.app.SearchManager
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.preference.PreferenceManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.ch11_jetpack.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
@@ -22,7 +25,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val TAG = "25android"
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var binding: ActivityMainBinding
-
+    lateinit var sharedPreferences: SharedPreferences
+    // Oncreate -> onStart -> OnResume
     class MyFragmentPagerAdapter(activity: FragmentActivity): FragmentStateAdapter(activity){
         val fragments: List<Fragment>
         init {
@@ -45,6 +49,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar) // 액션바 설정
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val idPre = sharedPreferences.getString("ID","")
+        val colorPre = sharedPreferences.getString("color", "#aaaaaa")
+
+        binding.toolbar.title = idPre
+        binding.toolbar.setTitleTextColor(Color.parseColor(colorPre))
 
         toggle = ActionBarDrawerToggle(this, binding.main, R.string.drawer_opened,
             R.string.drawer_closed)
@@ -127,5 +138,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         binding.main.closeDrawers()
         return false
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val idPre = sharedPreferences.getString("ID","")
+        val colorPre = sharedPreferences.getString("color", "#aaaaaa")
+
+        binding.toolbar.title = idPre
+        binding.toolbar.setTitleTextColor(Color.parseColor(colorPre))
     }
 }
