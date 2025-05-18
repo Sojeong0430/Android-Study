@@ -1,5 +1,7 @@
 package com.example.ch18_network
 
+import com.tickaroo.tikxml.TikXml
+import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -13,6 +15,7 @@ class RetrofitConnection{
         //API 서버의 주소가 BASE_URL이 됩니다.
         private const val BASE_URL = "https://apis.data.go.kr/1360000/WthrWrnInfoService/" // 접근하려는 웹 주소
 
+        //json
         var jsonNetworkService : NetworkService
         val jsonRetrofit : Retrofit
             get() = Retrofit.Builder()
@@ -20,8 +23,18 @@ class RetrofitConnection{
                 .addConverterFactory(GsonConverterFactory.create()) // 전달받은 Json을 Converter
                 .build()
 
+        //xml
+        var xmlNetworkService : NetworkService
+        val parser = TikXml.Builder().exceptionOnUnreadXml(false).build()
+        val xmlRetrofit : Retrofit
+            get() = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(TikXmlConverterFactory.create(parser)) // 전달받은 Json을 Converter
+                .build()
+
         init{
             jsonNetworkService = jsonRetrofit.create(NetworkService::class.java)
+            xmlNetworkService = xmlRetrofit.create(NetworkService::class.java)
         }
     }
 }

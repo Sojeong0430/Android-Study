@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -53,4 +54,12 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.0.0")
     implementation("com.google.code.gson:gson:2.8.9")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // tikxml
+    implementation("com.tickaroo.tikxml:annotation:0.8.13")
+    implementation("com.tickaroo.tikxml:core:0.8.13")
+    implementation("com.tickaroo.tikxml:retrofit-converter:0.8.13")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    kapt("com.tickaroo.tikxml:processor:0.8.13")
+
 }

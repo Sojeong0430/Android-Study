@@ -1,11 +1,19 @@
 package com.example.ch18_network
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ch18_network.databinding.FragmentXmlBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +29,7 @@ class XmlFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    val TAG = "25android"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +45,45 @@ class XmlFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentXmlBinding.inflate(inflater, container, false)
+
+        val loc = arguments?.getString("searchLoc") ?: "108"
+        Log.d(TAG,loc);
+
+        val dateFormat = SimpleDateFormat("yyyyMMdd")
+        val today = dateFormat.format(System.currentTimeMillis())
+
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.DATE, -3)
+        val three_ago = dateFormat.format(cal.time)
+
+        val call: Call<XmlResponse> = RetrofitConnection.xmlNetworkService.getXmlList(
+            loc.toInt(),
+            1,
+            10,
+            "xml",
+            "vAFsLjspvIdXWIickBuIbessXMW6J5vv0DJoyweELSvzzY6vbGCS8sVjcdAqedoihVUSs5s1p1pV/cZ5ub+F5w==",
+            three_ago, today
+
+        )
+
+        call?.enqueue(object : Callback<XmlResponse> { // 실행
+            override fun onResponse(call: Call<XmlResponse>, response: Response<XmlResponse>){
+                if(response.isSuccessful){
+                    Log.d(TAG, "${response}")
+                    Log.d(TAG, "${response.body()}")
+
+                    binding.xmlRecyclerView.layoutManager = LinearLayoutManager(activity)
+                    binding.xmlRecyclerView.adapter = XmlAdapter(response.body()!!.body.items.item)
+                    binding.xmlRecyclerView.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+                }
+            } // 성공
+
+            override fun onFailure(call: Call<XmlResponse>, t: Throwable){
+                Log.d(TAG, "${call.request()}")
+                Log.d(TAG, "${t.message}")
+            } // 실패
+
+        })
         return binding.root
     }
 

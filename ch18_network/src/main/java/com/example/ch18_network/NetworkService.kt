@@ -10,7 +10,7 @@ import retrofit2.http.Query
 interface NetworkService {
 
     @GET("getWthrWrnList")
-    fun getJsonList(
+    fun getJsonList( // Json
         @Query("stnId") loc:Int,
         @Query("pageNo") pageNo:Int,
         @Query("numOfRows") numOfRows:Int,
@@ -19,5 +19,16 @@ interface NetworkService {
         @Query("fromTmFc") from_date:String,
         @Query("toTmFc") to_date:String
     ) : Call<JsonResponse>
+
+    @GET("getWthrWrnList")
+    fun getXmlList( // Xml
+        @Query("stnId") loc:Int,
+        @Query("pageNo") pageNo:Int,
+        @Query("numOfRows") numOfRows:Int,
+        @Query("dataType") returnType:String,
+        @Query("serviceKey") apiKey:String,
+        @Query("fromTmFc") from_date:String,
+        @Query("toTmFc") to_date:String
+    ) : Call<XmlResponse>
 
 }

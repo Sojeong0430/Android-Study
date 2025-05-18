@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         // Fragment 객체 선언
         var jsonfragment = JsonFragment()
         var xmlfragment = XmlFragment()
+
         val bundle = Bundle()
 
         binding.btnSearch.setOnClickListener {
@@ -28,11 +29,13 @@ class MainActivity : AppCompatActivity() {
                 bundle.putString("searchLoc", binding.edtLoc.text.toString())
 
                 if (binding.rGroup.checkedRadioButtonId == R.id.rbJson) {
+                    jsonfragment = JsonFragment() // 새로 생성
                     jsonfragment.arguments = bundle
                     supportFragmentManager.beginTransaction() // 어떤 Fragment를 사용할 것인가
                         .replace(R.id.activity_content, jsonfragment)
                         .commit() // commit을 해야 반영된다
                 } else if (binding.rGroup.checkedRadioButtonId == R.id.rbXml) {
+                    xmlfragment = XmlFragment()
                     xmlfragment.arguments = bundle
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.activity_content, xmlfragment)
