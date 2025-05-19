@@ -32,9 +32,19 @@ class RetrofitConnection{
                 .addConverterFactory(TikXmlConverterFactory.create(parser)) // 전달받은 Json을 Converter
                 .build()
 
+        // img 테스트
+        val BASE_URL2 = "https://newsapi.org"
+        var imgNetworkService : NetworkService
+        val imgRetrofit : Retrofit
+            get() = Retrofit.Builder()
+                .baseUrl(BASE_URL2)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
         init{
             jsonNetworkService = jsonRetrofit.create(NetworkService::class.java)
             xmlNetworkService = xmlRetrofit.create(NetworkService::class.java)
+            imgNetworkService = imgRetrofit.create(NetworkService::class.java)
         }
     }
 }

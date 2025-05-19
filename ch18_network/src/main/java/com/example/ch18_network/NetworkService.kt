@@ -31,4 +31,11 @@ interface NetworkService {
         @Query("toTmFc") to_date:String
     ) : Call<XmlResponse>
 
+    @GET("/v2/everything")
+        fun getImgList(
+        @Query("q") q: String,
+        @Query("apiKey") apiKey: String,
+        @Query("page") page: Long,
+        @Query("pageSize") numOfRows: Int
+        ): Call<ImgResponse>
 }

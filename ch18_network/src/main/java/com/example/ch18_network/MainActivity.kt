@@ -17,32 +17,37 @@ class MainActivity : AppCompatActivity() {
         // Fragment 객체 선언
         var jsonfragment = JsonFragment()
         var xmlfragment = XmlFragment()
+        var imgfragment = ImgFragment()
 
-        val bundle = Bundle()
+        val bundle = Bundle() // EditText에 사용자가 입력한 값
 
         binding.btnSearch.setOnClickListener {
             val loc = binding.edtLoc.text.toString()
-            if(loc == ""){ // 아무것도 입력하지 않았다면
+            if (loc == "") { // 아무것도 입력하지 않았다면
                 Toast.makeText(this, "지역 ID를 입력하세요. 예: 서울은 108, 제주는 184", Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 bundle.putString("searchLoc", binding.edtLoc.text.toString())
 
-                if (binding.rGroup.checkedRadioButtonId == R.id.rbJson) {
+                if (binding.rGroup.checkedRadioButtonId == R.id.rbJson) { //////// Json
                     jsonfragment = JsonFragment() // 새로 생성
                     jsonfragment.arguments = bundle
                     supportFragmentManager.beginTransaction() // 어떤 Fragment를 사용할 것인가
                         .replace(R.id.activity_content, jsonfragment)
                         .commit() // commit을 해야 반영된다
-                } else if (binding.rGroup.checkedRadioButtonId == R.id.rbXml) {
+                } else if (binding.rGroup.checkedRadioButtonId == R.id.rbXml) { ///////// Xml
                     xmlfragment = XmlFragment()
                     xmlfragment.arguments = bundle
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.activity_content, xmlfragment)
                         .commit()
+                } else if (binding.rGroup.checkedRadioButtonId == R.id.rbImg) { ///////// Img
+                    imgfragment = ImgFragment()
+                    imgfragment.arguments = bundle
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.activity_content, imgfragment)
+                        .commit()
                 }
             }
         }
     }
-
 }
