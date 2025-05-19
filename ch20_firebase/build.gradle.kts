@@ -1,15 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
+
+    id("com.google.gms.google-services") version "4.4.2" apply false
 }
 
 android {
-    namespace = "com.example.ch18_network"
+    namespace = "com.example.ch20_firebase"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.ch18_network"
+        applicationId = "com.example.ch20_firebase"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -50,19 +51,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.0.0")
-    implementation("com.google.code.gson:gson:2.8.9")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
-    // tikxml
-    implementation("com.tickaroo.tikxml:annotation:0.8.13")
-    implementation("com.tickaroo.tikxml:core:0.8.13")
-    implementation("com.tickaroo.tikxml:retrofit-converter:0.8.13")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    kapt("com.tickaroo.tikxml:processor:0.8.13")
-
-    // Gilde
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
-
+    // firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
 }
